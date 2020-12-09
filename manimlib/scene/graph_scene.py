@@ -65,7 +65,13 @@ class GraphScene(Scene):
         self.right_T_label = VGroup()
         self.right_v_line = VGroup()
 
-    def setup_axes(self, animate=False):
+    def setup_axes(self, animate=False,
+                   x_axis_num_direction=.25 * TOP,
+                   y_axis_num_direction=LEFT,
+                   x_axis_label_direction=RIGHT,
+                   y_axis_label_direction=DOWN,
+                   y_axis_label_pos=DOWN
+                   ):
         """
         This method sets up the axes of the graph.
 
@@ -88,7 +94,8 @@ class GraphScene(Scene):
             tick_frequency=self.x_tick_frequency,
             leftmost_tick=self.x_leftmost_tick,
             numbers_with_elongated_ticks=self.x_labeled_nums,
-            color=self.axes_color
+            color=self.axes_color,
+            label_direction=x_axis_num_direction
         )
         x_axis.shift(self.graph_origin - x_axis.number_to_point(0))
         if len(self.x_labeled_nums) > 0:
@@ -96,9 +103,9 @@ class GraphScene(Scene):
                 self.x_labeled_nums = [x for x in self.x_labeled_nums if x != 0]
             x_axis.add_numbers(*self.x_labeled_nums)
         if self.x_axis_label:
-            x_label = TextMobject(self.x_axis_label)
+            x_label = TextMobject(self.x_axis_label).scale(.5)
             x_label.next_to(
-                x_axis.get_tick_marks(), UP + RIGHT,
+                x_axis.get_tick_marks(), x_axis_label_direction,
                 buff=SMALL_BUFF
             )
             x_label.shift_onto_screen()
@@ -121,7 +128,7 @@ class GraphScene(Scene):
             numbers_with_elongated_ticks=self.y_labeled_nums,
             color=self.axes_color,
             line_to_number_vect=LEFT,
-            label_direction=LEFT,
+            label_direction=y_axis_num_direction,
         )
         y_axis.shift(self.graph_origin - y_axis.number_to_point(0))
         y_axis.rotate(np.pi / 2, about_point=y_axis.number_to_point(0))
@@ -130,9 +137,9 @@ class GraphScene(Scene):
                 self.y_labeled_nums = [y for y in self.y_labeled_nums if y != 0]
             y_axis.add_numbers(*self.y_labeled_nums)
         if self.y_axis_label:
-            y_label = TextMobject(self.y_axis_label)
+            y_label = TextMobject(self.y_axis_label).scale(.5)
             y_label.next_to(
-                y_axis.get_corner(UP + RIGHT), UP + RIGHT,
+                y_axis.get_corner(y_axis_label_pos), y_axis_label_direction,
                 buff=SMALL_BUFF
             )
             y_label.shift_onto_screen()

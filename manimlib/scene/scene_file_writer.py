@@ -427,7 +427,7 @@ class SceneFileWriter(object):
     def close_movie_pipe(self):
         """
         Used internally by Manim to gracefully stop writing to FFMPEG's
-        input buffer, and move the temporary files into their permanent
+        input buffer, and move the temporary files into their permananant
         locations
         """
         self.writing_process.stdin.close()

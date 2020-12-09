@@ -65,10 +65,11 @@ class NumberLine(Line):
 
     def add_tick_marks(self):
         tick_size = self.tick_size
-        self.tick_marks = VGroup(*[
-            self.get_tick(x, tick_size)
-            for x in self.get_tick_numbers()
-        ])
+        self.tick_marks = VGroup()
+        # VGroup(*[
+        #     self.get_tick(x, tick_size)
+        #     for x in self.get_tick_numbers()
+        # ])
         big_tick_size = tick_size * self.longer_tick_multiple
         self.big_tick_marks = VGroup(*[
             self.get_tick(x, big_tick_size)
@@ -160,7 +161,7 @@ class NumberLine(Line):
         buff = buff or self.line_to_number_buff
 
         num_mob = DecimalNumber(number, **number_config)
-        num_mob.scale(scale_val)
+        num_mob.scale(.5)
         num_mob.next_to(
             self.number_to_point(number),
             direction=direction,
